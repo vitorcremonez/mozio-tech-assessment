@@ -4,6 +4,7 @@ export default function Home() {
 	return (
 		<>
 			<LocationPickerInput
+				value={""}
 				label={"City of origin"}
 				onChange={(value) => console.log({ value })}
 				error={"You must choose the city of origin"}

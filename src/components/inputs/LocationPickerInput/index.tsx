@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Container, Error, Label } from "../styles";
+import { InputProps } from "../types";
 import Selector from "./Selector";
 import { Input } from "./styles";
 
-interface LocationPickerInputProps {
-	value?: string;
-	label: string;
-	error?: string;
-	onChange: (option: string) => any;
-}
-
-const LocationPickerInput: React.FC<LocationPickerInputProps> = ({
+const LocationPickerInput: React.FC<InputProps<string>> = ({
 	value,
 	label,
 	error,
-	onChange,
+	onChange = () => {},
 }) => {
 	const [term, setTerm] = useState(value);
 	const [focused, setFocused] = useState(false);

@@ -1,18 +1,12 @@
 import React, { useCallback } from "react";
 import { Container, Error, Label } from "../styles";
+import { InputProps } from "../types";
 
-interface StepperInputProps {
-	value: number;
-	label: string;
-	error?: string;
-	onChange: (option: number) => any;
-}
-
-const StepperInput: React.FC<StepperInputProps> = ({
+const StepperInput: React.FC<InputProps<number>> = ({
 	value,
 	label,
 	error,
-	onChange,
+	onChange = () => {},
 }) => {
 	const decrease = useCallback(() => {
 		if (value > 0) {
