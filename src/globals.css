@@ -2,4 +2,8 @@ body {
    font-family: Inter;
    color: #374151;
    font-size: 12px;
+   font-weight: 500;
+}
+input {
+   color: #374151;
 }

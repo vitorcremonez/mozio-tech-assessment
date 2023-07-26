@@ -3,21 +3,28 @@ import Selector from "./Selector";
 import { Error, Input, Label } from "./styles";
 
 interface LocationPickerInputProps {
+	value?: string;
 	label: string;
 	error?: string;
 	onChange: (option: string) => any;
 }
 
 const LocationPickerInput: React.FC<LocationPickerInputProps> = ({
+	value,
 	label,
 	error,
 	onChange,
 }) => {
-	const [term, setTerm] = useState("");
+	const [term, setTerm] = useState(value);
 	const [focused, setFocused] = useState(false);
+	const [options, setOptions] = useState([
+		"Paris",
+		"Montpellier",
+		"Aix-en-Provence",
+	]);
 
 	useEffect(() => {
-		console.log(term);
+		setOptions(["Paris", "Aix-en-Provence"]);
 	}, [term]);
 
 	return (
@@ -29,10 +36,9 @@ const LocationPickerInput: React.FC<LocationPickerInputProps> = ({
 				onBlur={() => setFocused(false)}
 				onChange={({ target }) => setTerm(target.value)}
 			/>
-			<Selector
-				options={["Paris", "Montpellier", "Aix-en-Provence"]}
-				onSelect={(option) => onChange(option)}
-			/>
+			{focused && (
+				<Selector options={options} onSelect={(option) => onChange(option)} />
+			)}
 			{error && <Error>{error}</Error>}
 		</>
 	);

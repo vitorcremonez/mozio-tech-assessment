@@ -5,13 +5,14 @@ export default function Home() {
 		<>
 			<LocationPickerInput
 				label={"City of origin"}
-				onChange={() => alert("ok")}
+				onChange={(value) => console.log({ value })}
 				error={"You must choose the city of origin"}
 			/>
 			<br />
 			<LocationPickerInput
+				value={""}
 				label={"City of destination"}
-				onChange={() => alert("ok")}
+				onChange={(value) => console.log({ value })}
 				error={"Oops! Failed to search with this keyword."}
 			/>
 		</>
