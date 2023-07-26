@@ -1,3 +1,19 @@
+import { LocationPickerInput } from "components";
+
 export default function Home() {
-	return <h1>HOME</h1>;
+	return (
+		<>
+			<LocationPickerInput
+				label={"City of origin"}
+				onChange={() => alert("ok")}
+				error={"Required field"}
+			/>
+			<br />
+			<LocationPickerInput
+				label={"City of destination"}
+				onChange={() => alert("ok")}
+				error={"Required field"}
+			/>
+		</>
+	);
 }
