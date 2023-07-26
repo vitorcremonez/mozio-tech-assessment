@@ -6,13 +6,13 @@ export default function Home() {
 			<LocationPickerInput
 				label={"City of origin"}
 				onChange={() => alert("ok")}
-				error={"Required field"}
+				error={"You must choose the city of origin"}
 			/>
 			<br />
 			<LocationPickerInput
 				label={"City of destination"}
 				onChange={() => alert("ok")}
-				error={"Required field"}
+				error={"Oops! Failed to search with this keyword."}
 			/>
 		</>
 	);
