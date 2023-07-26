@@ -1,3 +1,4 @@
+import { Button } from "components";
 import {
 	DatePickerInput,
 	LocationPickerInput,
@@ -31,6 +32,7 @@ export default function Home() {
 				onChange={() => {}}
 				error={"Select date"}
 			/>
+			<Button>Submit</Button>
 		</>
 	);
 }
