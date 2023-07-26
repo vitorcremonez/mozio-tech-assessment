@@ -1,4 +1,4 @@
-import { LocationPickerInput } from "components";
+import { LocationPickerInput, StepperInput } from "components";
 
 export default function Home() {
 	return (
@@ -14,6 +14,13 @@ export default function Home() {
 				label={"City of destination"}
 				onChange={(value) => console.log({ value })}
 				error={"Oops! Failed to search with this keyword."}
+			/>
+			<br />
+			<StepperInput
+				value={0}
+				label={"Passengers"}
+				onChange={(quantity) => console.log({ quantity })}
+				error={"Select passengers"}
 			/>
 		</>
 	);
