@@ -1,4 +1,8 @@
-import { LocationPickerInput, StepperInput } from "components/inputs";
+import {
+	DatePickerInput,
+	LocationPickerInput,
+	StepperInput,
+} from "components/inputs";
 
 export default function Home() {
 	return (
@@ -20,6 +24,12 @@ export default function Home() {
 				label={"Passengers"}
 				onChange={(quantity) => console.log({ quantity })}
 				error={"Select passengers"}
+			/>
+			<DatePickerInput
+				value={"2020-01-01 00:00:00"}
+				label={"Date"}
+				onChange={() => {}}
+				error={"Select date"}
 			/>
 		</>
 	);
