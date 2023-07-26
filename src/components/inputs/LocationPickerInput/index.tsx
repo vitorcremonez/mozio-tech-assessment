@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Container, Error, Label } from "../styles";
 import Selector from "./Selector";
-import { Error, Input, Label } from "./styles";
+import { Input } from "./styles";
 
 interface LocationPickerInputProps {
 	value?: string;
@@ -28,7 +29,7 @@ const LocationPickerInput: React.FC<LocationPickerInputProps> = ({
 	}, [term]);
 
 	return (
-		<>
+		<Container>
 			<Label>{label}</Label>
 			<Input
 				value={term}
@@ -40,7 +41,7 @@ const LocationPickerInput: React.FC<LocationPickerInputProps> = ({
 				<Selector options={options} onSelect={(option) => onChange(option)} />
 			)}
 			{error && <Error>{error}</Error>}
-		</>
+		</Container>
 	);
 };
 

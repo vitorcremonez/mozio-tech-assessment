@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const Label = styled.label`
-	display: block;
-`;
-
 export const Input = styled.input`
 	background-color: #ffffff;
 	border: 1px solid #e5e7eb;
@@ -12,8 +8,4 @@ export const Input = styled.input`
 	font-size: 12px;
 	font-weight: 500;
 	outline: none;
-`;
-
-export const Error = styled.div`
-	color: #ff0000;
 `;

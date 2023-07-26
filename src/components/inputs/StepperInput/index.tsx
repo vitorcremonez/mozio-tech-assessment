@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { Container, Error, Label } from "../styles";
 
 interface StepperInputProps {
 	value: number;
@@ -24,8 +25,8 @@ const StepperInput: React.FC<StepperInputProps> = ({
 	}, [value, onChange]);
 
 	return (
-		<>
-			<label>{label}</label>
+		<Container>
+			<Label>{label}</Label>
 			<div style={{ display: "flex" }}>
 				<div>
 					<button onClick={() => decrease()}>-</button>
@@ -35,8 +36,8 @@ const StepperInput: React.FC<StepperInputProps> = ({
 					<button onClick={() => increase()}>+</button>
 				</div>
 			</div>
-			{error && <div>{error}</div>}
-		</>
+			{error && <Error>{error}</Error>}
+		</Container>
 	);
 };
 
