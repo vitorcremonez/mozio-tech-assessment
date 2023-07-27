@@ -12,6 +12,7 @@ const DatePickerInput: React.FC<InputProps<string>> = ({
 }) => {
 	const [focused, setFocused] = useState(false);
 	const formattedDate = useMemo(() => {
+		if (!value) return "";
 		return moment(value).format("MM/DD/YYYY");
 	}, [value]);
 

@@ -20,7 +20,12 @@ const Form: React.FC<FormProps> = ({
 	);
 
 	return (
-		<Formik initialValues={initialValues} onSubmit={handleSubmit}>
+		<Formik
+			initialValues={initialValues}
+			onSubmit={handleSubmit}
+			validateOnBlur
+			validateOnChange
+		>
 			{() => <FormikForm>{children}</FormikForm>}
 		</Formik>
 	);

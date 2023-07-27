@@ -6,14 +6,16 @@ export interface StepperFieldProps {
 	name: string;
 	value?: number;
 	label: string;
+	validate?: (value: number) => string | undefined;
 }
 
 const StepperField: React.FC<StepperFieldProps> = ({
 	name,
 	value = 0,
 	label,
+	validate = () => undefined,
 }) => {
-	const [_field, meta, helpers] = useField({ name, value });
+	const [_field, meta, helpers] = useField({ name, value, validate });
 
 	return (
 		<Field

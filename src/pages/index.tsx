@@ -16,22 +16,53 @@ export default function Home() {
 						origin: "",
 						destinations: [""],
 						passengers: 0,
+						date: "",
 					}}
 					onSubmit={(values) => console.log(values)}
 				>
 					<Card>
 						<Row>
-							<Col xs={12} md={6}>
+							<Col xs={12} md={8}>
 								{/* <RouteFields /> */}
-								<LocationPickerField name={"origin"} label={"City of origin"} />
+								<LocationPickerField
+									name={"origin"}
+									label={"City of origin"}
+									validate={(value) => {
+										if (!value) {
+											return "You must choose the city of origin";
+										}
+									}}
+								/>
 								<LocationPickerField
 									name={"destinations[0]"}
 									label={"City of destination"}
+									validate={(value) => {
+										if (!value) {
+											return "You must choose the city of destination";
+										}
+									}}
 								/>
 							</Col>
-							<Col xs={12} md={6}>
-								<StepperField name={"passengers"} label={"Passengers"} />
-								<DatePickerField name={"date"} label={"Date"} />
+							<Col xs={12} md={4}>
+								<StepperField
+									name={"passengers"}
+									label={"Passengers"}
+									validate={(value) => {
+										if (value < 1) {
+											return "Select passengers";
+										}
+									}}
+								/>
+								<DatePickerField
+									name={"date"}
+									label={"Date"}
+									validate={(value) => {
+										console.log("TTTTT", value);
+										if (!value) {
+											return "Select date";
+										}
+									}}
+								/>
 							</Col>
 						</Row>
 						<Row>

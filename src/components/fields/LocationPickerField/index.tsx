@@ -6,14 +6,16 @@ export interface LocationPickerFieldProps {
 	name: string;
 	value?: string;
 	label: string;
+	validate?: (value: string) => string | undefined;
 }
 
 const LocationPickerField: React.FC<LocationPickerFieldProps> = ({
 	name,
 	value = "",
 	label,
+	validate = () => undefined,
 }) => {
-	const [_field, meta, helpers] = useField({ name, value });
+	const [_field, meta, helpers] = useField({ name, value, validate });
 
 	return (
 		<Field

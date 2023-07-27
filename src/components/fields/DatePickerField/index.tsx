@@ -6,14 +6,16 @@ interface DatePickerFieldProps {
 	name: string;
 	value?: string;
 	label: string;
+	validate?: (value: string) => string | undefined;
 }
 
 const DatePickerField: React.FC<DatePickerFieldProps> = ({
 	name,
-	value,
+	value = "",
 	label,
+	validate = () => undefined,
 }) => {
-	const [_field, meta, helpers] = useField({ name, value });
+	const [_field, meta, helpers] = useField({ name, value, validate });
 
 	return (
 		<Field
