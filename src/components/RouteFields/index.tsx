@@ -93,7 +93,7 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 					<td>+</td>
 					<MiddleColumn>
 						<a
-							href="#"
+							href={"#"}
 							onClick={() => {
 								setKeys([...keys, generateUuid()]);
 							}}
