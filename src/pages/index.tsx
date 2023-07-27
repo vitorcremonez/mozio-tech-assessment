@@ -1,7 +1,10 @@
 import { Button, Form } from "components";
 import Card from "components/Card";
-import { LocationPickerField, StepperField } from "components/fields";
-import { DatePickerInput } from "components/inputs";
+import {
+	DatePickerField,
+	LocationPickerField,
+	StepperField,
+} from "components/fields";
 import { Col, Row } from "react-grid-system";
 
 export default function Home() {
@@ -26,12 +29,7 @@ export default function Home() {
 							</Col>
 							<Col xs={12} md={6}>
 								<StepperField name={"passengers"} label={"Passengers"} />
-								<DatePickerInput
-									value={"2020-01-01 00:00:00"}
-									label={"Date"}
-									onChange={() => {}}
-									error={"Select date"}
-								/>
+								<DatePickerField name={"date"} label={"Date"} />
 							</Col>
 						</Row>
 						<Row>
