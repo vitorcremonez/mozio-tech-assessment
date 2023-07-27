@@ -1,27 +1,32 @@
-import { Button } from "components";
+import { Button, Form } from "components";
 import Card from "components/Card";
-import {
-	DatePickerInput,
-	LocationPickerInput,
-	StepperInput,
-} from "components/inputs";
+import { StepperField } from "components/fields";
+import { DatePickerInput, LocationPickerInput } from "components/inputs";
 import { Col, Row } from "react-grid-system";
 
 export default function Home() {
 	return (
 		<>
 			<div style={{ maxWidth: 750, margin: "auto" }}>
-				<form>
+				<Form
+					initialValues={{
+						passengers: 0,
+					}}
+					onSubmit={(values) => console.log(values)}
+				>
 					<Card>
 						<Row>
 							<Col xs={12} md={6}>
+								{/* <RouteFields /> */}
 								<LocationPickerInput
+									// name={"origin"}
 									value={""}
 									label={"City of origin"}
 									onChange={(value) => console.log({ value })}
 									error={"You must choose the city of origin"}
 								/>
 								<LocationPickerInput
+									// name={"destination.1"}
 									value={""}
 									label={"City of destination"}
 									onChange={(value) => console.log({ value })}
@@ -29,7 +34,8 @@ export default function Home() {
 								/>
 							</Col>
 							<Col xs={12} md={6}>
-								<StepperInput
+								<StepperField
+									name={"passengers"}
 									value={0}
 									label={"Passengers"}
 									onChange={(quantity) => console.log({ quantity })}
@@ -49,7 +55,7 @@ export default function Home() {
 							</Col>
 						</Row>
 					</Card>
-				</form>
+				</Form>
 			</div>
 		</>
 	);
