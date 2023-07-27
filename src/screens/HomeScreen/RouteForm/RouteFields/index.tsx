@@ -1,5 +1,6 @@
 import { LocationPickerField } from "components/fields";
 import React, { useEffect, useState } from "react";
+import { AiOutlinePlusCircle as PlusIcon } from "react-icons/ai";
 import { BiCircle as CircleIcon } from "react-icons/bi";
 import { CgCloseO as CloseIcon } from "react-icons/cg";
 import { RiMapPin2Line as PinIcon } from "react-icons/ri";
@@ -28,7 +29,7 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 	}, [keys]);
 
 	return (
-		<Table border={1} cellSpacing={0} cellPadding={0}>
+		<Table>
 			<tbody>
 				<Row>
 					<LeftColumn>
@@ -90,17 +91,20 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 					);
 				})}
 				<Row>
-					<td>+</td>
-					<MiddleColumn>
+					<td colSpan={2} style={{ verticalAlign: "top", height: 50 }}>
 						<a
 							href={"#"}
 							onClick={() => {
 								setKeys([...keys, generateUuid()]);
 							}}
 						>
-							Add destination
+							<PlusIcon
+								style={{ marginRight: 10, transform: "translateY(4px)" }}
+								size={16}
+							/>
+							{"Add destination"}
 						</a>
-					</MiddleColumn>
+					</td>
 					<RightColumn></RightColumn>
 				</Row>
 			</tbody>

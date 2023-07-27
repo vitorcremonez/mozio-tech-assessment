@@ -1,0 +1,44 @@
+import axios from "axios";
+import Card from "components/Card";
+import { useState } from "react";
+import RouteForm from "./RouteForm";
+
+// TODO: isolate this
+async function calculateDistances(cities: string[]) {
+	const response = await axios.request({
+		method: "POST",
+		url: "http://localhost:3000/api/distance-measurer", // TODO: env
+		data: {
+			cities,
+		},
+	});
+	const distances = response.data.data;
+	return distances;
+}
+
+const HomeScreen: React.FC = () => {
+	const [result, setResult] = useState();
+
+	return (
+		<>
+			<Card style={{ maxWidth: 750, margin: "auto" }}>
+				{!result && (
+					<RouteForm
+						onSubmit={async ({ route }) => {
+							const distances = await calculateDistances(route);
+							setResult({ distances });
+						}}
+					/>
+				)}
+				{result && (
+					<>
+						<h1>Result</h1>
+						<pre>{JSON.stringify(result, null, 2)}</pre>
+					</>
+				)}
+			</Card>
+		</>
+	);
+};
+
+export default HomeScreen;
