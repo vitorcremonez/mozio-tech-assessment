@@ -1,16 +1,16 @@
-import StepperInput from "components/inputs/StepperInput";
+import { LocationPickerInput } from "components/inputs";
 import { Field, useField } from "formik";
 import React from "react";
 
-export interface StepperFieldProps {
+export interface LocationPickerFieldProps {
 	name: string;
-	value?: number;
+	value?: string;
 	label: string;
 }
 
-const StepperField: React.FC<StepperFieldProps> = ({
+const LocationPickerField: React.FC<LocationPickerFieldProps> = ({
 	name,
-	value = 0,
+	value = "",
 	label,
 }) => {
 	const [_field, meta, helpers] = useField({ name, value });
@@ -21,10 +21,10 @@ const StepperField: React.FC<StepperFieldProps> = ({
 			value={meta.value}
 			label={label}
 			error={meta.touched && meta.error ? meta.error : undefined}
-			component={StepperInput}
+			component={LocationPickerInput}
 			onChange={(value: any) => helpers.setValue(value)}
 		/>
 	);
 };
 
-export default StepperField;
+export default LocationPickerField;
