@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Button, Form } from "components";
 import Card from "components/Card";
 import RouteFields from "components/RouteFields";
@@ -5,19 +6,30 @@ import { DatePickerField, StepperField } from "components/fields";
 import { useCallback, useState } from "react";
 import { Col, Row } from "react-grid-system";
 
+async function calculateDistances(cities: string[]) {
+	const response = await axios.request({
+		method: "POST",
+		url: "http://localhost:3000/api/distance-measurer", // TODO:
+		data: {
+			cities,
+		},
+	});
+	const distances = response.data.data;
+	return distances;
+}
+
 export default function Home() {
 	const [keys, setKeys] = useState<string[]>([]);
 
 	const handleSubmit = useCallback(
-		(values: any) => {
+		async (values: any) => {
 			const destinations = keys.map((key) => values.destinations[key]);
 			const route = [values.origin, ...destinations];
 			const passengers = values.passengers;
 			const date = values.date;
+			const distances = await calculateDistances(route);
 			console.log({
-				route,
-				passengers,
-				date,
+				distances,
 			});
 		},
 		[keys]

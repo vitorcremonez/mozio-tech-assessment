@@ -1,4 +1,5 @@
 import citiesData from "database/cities.json";
+import calculateHaversineDistance from "libs/calculateHaversineDistance";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 interface City {
@@ -19,10 +20,6 @@ function findCity(cityName: string): City {
 	};
 }
 
-function calculateDistance(cityA: City, cityB: City) {
-	return [0, 1, 2, 3]; // TODO:
-}
-
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
@@ -33,7 +30,7 @@ export default async function handler(
 	for (let i = 0; i < cities.length - 1; i++) {
 		const cityA = findCity(cities[i]);
 		const cityB = findCity(cities[i + 1]);
-		const distance = calculateDistance(cityA, cityB);
+		const distance = calculateHaversineDistance(cityA, cityB);
 		distances.push(distance);
 	}
 
