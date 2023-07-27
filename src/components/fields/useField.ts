@@ -1,7 +1,7 @@
 import { useField as useFormikField } from "formik";
 import { useEffect } from "react";
 
-const useField = ({
+export default function useField({
 	name,
 	defaultValue,
 	validate = () => undefined,
@@ -9,7 +9,7 @@ const useField = ({
 	name: string;
 	defaultValue: any;
 	validate: any;
-}) => {
+}) {
 	const [_field, meta, helpers] = useFormikField({
 		name: name,
 		validate: validate,
@@ -33,6 +33,4 @@ const useField = ({
 		error: meta.error,
 		setValue: helpers.setValue,
 	};
-};
-
-export default useField;
+}

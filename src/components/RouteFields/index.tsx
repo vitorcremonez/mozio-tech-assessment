@@ -1,8 +1,9 @@
 import { LocationPickerField } from "components/fields";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCircle as CircleIcon } from "react-icons/bi";
 import { CgCloseO as CloseIcon } from "react-icons/cg";
 import { RiMapPin2Line as PinIcon } from "react-icons/ri";
+import { v4 as generateUuid } from "uuid";
 import {
 	LeftColumn,
 	MiddleColumn,
@@ -12,10 +13,19 @@ import {
 	VerticalLine,
 } from "./styles";
 
-interface RouteFieldsProps {}
+const INITIAL_KEY = "d239c487-5a34-4dc4-b084-991cb71208c1";
 
-const RouteFields: React.FC<RouteFieldsProps> = () => {
-	const [destinations, setDestinations] = useState(["aaa"]);
+interface RouteFieldsProps {
+	onChangeDestinations: (keys: string[]) => any;
+}
+
+const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
+	const [keys, setKeys] = useState([INITIAL_KEY]);
+
+	useEffect(() => {
+		onChangeDestinations(keys);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [keys]);
 
 	return (
 		<Table border={1} cellSpacing={0} cellPadding={0}>
@@ -39,10 +49,11 @@ const RouteFields: React.FC<RouteFieldsProps> = () => {
 					</MiddleColumn>
 					<RightColumn></RightColumn>
 				</Row>
-				{destinations.map((destination, index) => {
-					const isLast = index === destinations.length - 1;
+				{keys.map((key, index) => {
+					const isLast = index === keys.length - 1;
+					const isUnique = keys.length === 1;
 					return (
-						<Row key={index}>
+						<Row key={key}>
 							<LeftColumn>
 								{isLast ? (
 									<PinIcon size={16} style={{ color: "#FF0000" }} />
@@ -56,7 +67,7 @@ const RouteFields: React.FC<RouteFieldsProps> = () => {
 							<MiddleColumn>
 								<LocationPickerField
 									defaultValue={""}
-									name={`destinations["${destination}"]`}
+									name={`destinations[${key}]`}
 									label={"City of destination"}
 									validate={(value) => {
 										if (!value) {
@@ -66,14 +77,14 @@ const RouteFields: React.FC<RouteFieldsProps> = () => {
 								/>
 							</MiddleColumn>
 							<RightColumn>
-								<CloseIcon
-									size={16}
-									onClick={() => {
-										setDestinations(
-											destinations.filter((x) => destination !== x)
-										);
-									}}
-								/>
+								{!isUnique && (
+									<CloseIcon
+										size={16}
+										onClick={() => {
+											setKeys(keys.filter((x) => key !== x));
+										}}
+									/>
+								)}
 							</RightColumn>
 						</Row>
 					);
@@ -84,7 +95,7 @@ const RouteFields: React.FC<RouteFieldsProps> = () => {
 						<a
 							href="#"
 							onClick={() => {
-								setDestinations([...destinations, Math.random().toString()]);
+								setKeys([...keys, generateUuid()]);
 							}}
 						>
 							Add destination
