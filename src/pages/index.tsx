@@ -13,6 +13,8 @@ export default function Home() {
 			<div style={{ maxWidth: 750, margin: "auto" }}>
 				<Form
 					initialValues={{
+						origin: "",
+						destinations: [""],
 						passengers: 0,
 					}}
 					onSubmit={(values) => console.log(values)}

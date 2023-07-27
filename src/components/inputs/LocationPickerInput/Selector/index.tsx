@@ -8,7 +8,7 @@ interface SelectorProps {
 
 const Selector: React.FC<SelectorProps> = ({ options, onSelect }) => {
 	return (
-		<div style={{ position: "relative" }}>
+		<div style={{ position: "relative", zIndex: 1000 }}>
 			<Background>
 				{options.map((option, key) => (
 					<Option key={key} onMouseDown={() => onSelect(option)}>

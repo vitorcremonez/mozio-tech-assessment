@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useMemo, useState } from "react";
 import { Container, Error, Label } from "../styles";
 import { InputProps } from "../types";
+import { Input } from "./styles";
 
 const DatePickerInput: React.FC<InputProps<string>> = ({
 	value,
@@ -17,16 +18,7 @@ const DatePickerInput: React.FC<InputProps<string>> = ({
 	return (
 		<Container>
 			<Label>{label}</Label>
-			<div
-				style={{
-					border: "1px solid orange",
-					borderRadius: "4px",
-					padding: "8px",
-				}}
-				onClick={() => setFocused(true)}
-			>
-				{formattedDate}
-			</div>
+			<Input onClick={() => setFocused(true)}>{formattedDate}</Input>
 			{focused && (
 				<div
 					onClick={() => {

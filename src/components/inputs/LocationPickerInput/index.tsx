@@ -26,13 +26,25 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 		<Container>
 			<Label>{label}</Label>
 			<Input
-				value={term}
+				value={value === term ? value : term}
 				onFocus={() => setFocused(true)}
 				onBlur={() => setFocused(false)}
-				onChange={({ target }) => setTerm(target.value)}
+				onChange={({ target }) => {
+					const newValue = target.value;
+					if (newValue.length < value.length) {
+						onChange("");
+					}
+					setTerm(newValue);
+				}}
 			/>
 			{focused && (
-				<Selector options={options} onSelect={(option) => onChange(option)} />
+				<Selector
+					options={options}
+					onSelect={(option) => {
+						setTerm(option);
+						onChange(option);
+					}}
+				/>
 			)}
 			{error && <Error>{error}</Error>}
 		</Container>

@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { Container, Error, Label } from "../styles";
 import { InputProps } from "../types";
+import { Button, Quantity, Wrapper } from "./styles";
 
 export type StepperInputProps = InputProps<number>;
 
@@ -23,19 +24,15 @@ const StepperInput: React.FC<StepperInputProps> = ({
 	return (
 		<Container>
 			<Label>{label}</Label>
-			<div style={{ display: "flex" }}>
-				<div>
-					<button type={"button"} onClick={() => decrease()}>
-						-
-					</button>
-				</div>
-				<div>{value}</div>
-				<div>
-					<button type={"button"} onClick={() => increase()}>
-						+
-					</button>
-				</div>
-			</div>
+			<Wrapper>
+				<Button type={"button"} onClick={() => decrease()}>
+					-
+				</Button>
+				<Quantity>{value}</Quantity>
+				<Button type={"button"} onClick={() => increase()}>
+					+
+				</Button>
+			</Wrapper>
 			{error && <Error>{error}</Error>}
 		</Container>
 	);
