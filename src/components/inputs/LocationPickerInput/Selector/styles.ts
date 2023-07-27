@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const Background = styled.div`
-	background-color: #ffffff;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: ${({ theme }) => theme.colors.background};
 	border: 1px solid #c7d1f4;
 	box-shadow: 0px 2px 4px -2px #00000022;
 	position: absolute;

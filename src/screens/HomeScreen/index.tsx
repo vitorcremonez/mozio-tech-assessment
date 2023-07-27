@@ -7,7 +7,7 @@ import RouteForm from "./RouteForm";
 async function calculateDistances(cities: string[]) {
 	const response = await axios.request({
 		method: "POST",
-		url: "http://localhost:3000/api/distance-measurer", // TODO: env
+		url: `http://localhost:3000/api/distance-measurer`, // TODO: env
 		data: {
 			cities,
 		},
@@ -17,16 +17,24 @@ async function calculateDistances(cities: string[]) {
 }
 
 const HomeScreen: React.FC = () => {
-	const [result, setResult] = useState();
+	const [result, setResult] = useState<{
+		distances: number[];
+		passengers: number;
+		date: string;
+	}>();
 
 	return (
 		<>
 			<Card style={{ maxWidth: 750, margin: "auto" }}>
 				{!result && (
 					<RouteForm
-						onSubmit={async ({ route }) => {
+						onSubmit={async ({ route, passengers, date }) => {
 							const distances = await calculateDistances(route);
-							setResult({ distances });
+							setResult({
+								distances,
+								passengers,
+								date,
+							});
 						}}
 					/>
 				)}
