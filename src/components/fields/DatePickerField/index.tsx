@@ -1,30 +1,35 @@
 import { DatePickerInput } from "components/inputs";
-import { Field, useField } from "formik";
+import { Field } from "formik";
 import React from "react";
+import useField from "../useField";
 
 interface DatePickerFieldProps {
 	name: string;
-	value?: string;
+	defaultValue: string;
 	label: string;
 	validate?: (value: string) => string | undefined;
 }
 
 const DatePickerField: React.FC<DatePickerFieldProps> = ({
 	name,
-	value = "",
+	defaultValue,
 	label,
-	validate = () => undefined,
+	validate,
 }) => {
-	const [_field, meta, helpers] = useField({ name, value, validate });
+	const { value, touched, error, setValue } = useField({
+		name,
+		defaultValue,
+		validate,
+	});
 
 	return (
 		<Field
 			name={name}
-			value={meta.value}
+			value={value}
 			label={label}
-			error={meta.touched && meta.error ? meta.error : undefined}
+			error={touched && error ? error : undefined}
 			component={DatePickerInput}
-			onChange={(value: any) => helpers.setValue(value)}
+			onChange={(value: any) => setValue(value)}
 		/>
 	);
 };

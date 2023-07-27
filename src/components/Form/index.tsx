@@ -2,16 +2,11 @@ import { Formik, Form as FormikForm } from "formik";
 import React, { useCallback } from "react";
 
 interface FormProps {
-	initialValues?: any;
 	children: React.ReactNode;
 	onSubmit: (data: any) => void;
 }
 
-const Form: React.FC<FormProps> = ({
-	initialValues = {},
-	onSubmit,
-	children,
-}) => {
+const Form: React.FC<FormProps> = ({ onSubmit, children }) => {
 	const handleSubmit = useCallback(
 		(values: any) => {
 			onSubmit(values);
@@ -21,12 +16,12 @@ const Form: React.FC<FormProps> = ({
 
 	return (
 		<Formik
-			initialValues={initialValues}
+			initialValues={{}}
 			onSubmit={handleSubmit}
 			validateOnBlur
 			validateOnChange
 		>
-			{() => <FormikForm>{children}</FormikForm>}
+			<FormikForm>{children}</FormikForm>
 		</Formik>
 	);
 };

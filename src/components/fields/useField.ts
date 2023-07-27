@@ -1,25 +1,34 @@
-import { useFormikContext, useField as useFormikField } from "formik";
+import { useField as useFormikField } from "formik";
 import { useEffect } from "react";
 
-const useField = (params: {
+const useField = ({
+	name,
+	defaultValue,
+	validate = () => undefined,
+}: {
 	name: string;
 	defaultValue: any;
 	validate: any;
 }) => {
 	const [_field, meta, helpers] = useFormikField({
-		name: params.name,
-		validate: params.validate,
+		name: name,
+		validate: validate,
 	});
-	const { setFieldValue } = useFormikContext();
 
 	useEffect(() => {
 		if (meta.value === undefined) {
-			helpers.setValue(params.defaultValue);
+			helpers.setValue(defaultValue);
 		}
-	}, [params.defaultValue, setFieldValue, meta.value, helpers]);
+	}, [defaultValue, meta.value, helpers]);
+
+	useEffect(() => {
+		return () => {
+			helpers.setValue(undefined);
+		};
+	}, [helpers]);
 
 	return {
-		value: meta.value || params.defaultValue,
+		value: meta.value || defaultValue,
 		touched: meta.touched,
 		error: meta.error,
 		setValue: helpers.setValue,

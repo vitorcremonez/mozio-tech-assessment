@@ -8,13 +8,7 @@ export default function Home() {
 	return (
 		<>
 			<div style={{ maxWidth: 750, margin: "auto" }}>
-				<Form
-					initialValues={{
-						passengers: 0,
-						date: "",
-					}}
-					onSubmit={(values) => console.log(values)}
-				>
+				<Form onSubmit={(values) => console.log(values)}>
 					<Card>
 						<Row>
 							<Col xs={12} md={8}>
@@ -22,6 +16,7 @@ export default function Home() {
 							</Col>
 							<Col xs={12} md={4}>
 								<StepperField
+									defaultValue={0}
 									name={"passengers"}
 									label={"Passengers"}
 									validate={(value) => {
@@ -31,6 +26,7 @@ export default function Home() {
 									}}
 								/>
 								<DatePickerField
+									defaultValue={""}
 									name={"date"}
 									label={"Date"}
 									validate={(value) => {

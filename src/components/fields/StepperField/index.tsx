@@ -1,30 +1,35 @@
 import StepperInput from "components/inputs/StepperInput";
-import { Field, useField } from "formik";
+import { Field } from "formik";
 import React from "react";
+import useField from "../useField";
 
 export interface StepperFieldProps {
 	name: string;
-	value?: number;
+	defaultValue: number;
 	label: string;
 	validate?: (value: number) => string | undefined;
 }
 
 const StepperField: React.FC<StepperFieldProps> = ({
 	name,
-	value = 0,
+	defaultValue,
 	label,
 	validate = () => undefined,
 }) => {
-	const [_field, meta, helpers] = useField({ name, value, validate });
+	const { value, touched, error, setValue } = useField({
+		name,
+		defaultValue,
+		validate,
+	});
 
 	return (
 		<Field
 			name={name}
-			value={meta.value}
+			value={value}
 			label={label}
-			error={meta.touched && meta.error ? meta.error : undefined}
+			error={touched && error ? error : undefined}
 			component={StepperInput}
-			onChange={(value: any) => helpers.setValue(value)}
+			onChange={(value: any) => setValue(value)}
 		/>
 	);
 };
