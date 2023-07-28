@@ -33,26 +33,32 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit }) => {
 					<RouteFields onChangeDestinations={(keys) => setKeys(keys)} />
 				</Col>
 				<Col xs={12} md={4}>
-					<StepperField
-						defaultValue={0}
-						name={"passengers"}
-						label={"Passengers"}
-						validate={(value) => {
-							if (value < 1) {
-								return "Select passengers";
-							}
-						}}
-					/>
-					<DatePickerField
-						defaultValue={""}
-						name={"date"}
-						label={"Date"}
-						validate={(value) => {
-							if (!value) {
-								return "Select date";
-							}
-						}}
-					/>
+					<Row style={{ marginLeft: 25, display: "inline-flex" }}>
+						<Col xs={6} md={12} style={{ paddingRight: 50 }}>
+							<StepperField
+								defaultValue={0}
+								name={"passengers"}
+								label={"Passengers"}
+								validate={(value) => {
+									if (value < 1) {
+										return "Select passengers";
+									}
+								}}
+							/>
+						</Col>
+						<Col xs={6} md={12}>
+							<DatePickerField
+								defaultValue={""}
+								name={"date"}
+								label={"Date"}
+								validate={(value) => {
+									if (!value) {
+										return "Select date";
+									}
+								}}
+							/>
+						</Col>
+					</Row>
 				</Col>
 			</Row>
 			<Row>
