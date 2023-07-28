@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
-	background-color: ${({ theme }) => theme.colors.font};
+	background-color: ${({ theme }) => theme.colors.button};
 	border: 1px solid ${({ theme }) => theme.colors.muted};
+	color: ${({ theme }) => theme.colors.buttonFont};
 	border-radius: 4px;
-	color: white;
 	font-size: 14px;
 	padding: 8px 12px;
 	cursor: pointer;

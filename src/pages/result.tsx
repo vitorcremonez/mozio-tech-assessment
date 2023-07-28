@@ -1,3 +1,5 @@
+import Footer from "components/Footer";
+import GradientBlurBackground from "components/GradientBlurBackground";
 import { useRouter } from "next/router";
 import ResultScreen from "screens/ResultScreen";
 import Path from "types/Path";
@@ -14,5 +16,11 @@ export default function ResultPage() {
 		return "Loading...";
 	}
 
-	return <ResultScreen passengers={passengers} date={date} paths={paths} />;
+	return (
+		<>
+			<GradientBlurBackground />
+			<ResultScreen passengers={passengers} date={date} paths={paths} />
+			<Footer />
+		</>
+	);
 }

@@ -98,7 +98,7 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 						>
 							<PlusIcon
 								style={{
-									marginRight: 10,
+									marginRight: 25,
 									transform: "translateY(4px)",
 								}}
 							/>
