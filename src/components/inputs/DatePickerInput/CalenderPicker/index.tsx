@@ -1,29 +1,36 @@
+import { useOutsideClick } from "hooks";
 import moment from "moment";
 import React, { useMemo, useState } from "react";
 import {
 	BackButton,
 	Body,
 	Container,
+	DateButton,
 	Day,
 	Days,
+	Dropdown,
+	DropdownItem,
 	Header,
-	MonthButton,
-	// MonthName,
-	// Months,
 	NextButton,
 	WeekDay,
 	WeekDays,
-	// Year,
-	// Years,
-	YearButton,
 } from "./styles";
 
 interface CalenderPickerProps {
 	date?: string;
+	minimumDate?: string;
+	maximumDate?: string;
 	onChoose: (date: string) => any;
+	onClose: () => any;
 }
 
-const CalenderPicker: React.FC<CalenderPickerProps> = ({ date, onChoose }) => {
+const CalenderPicker: React.FC<CalenderPickerProps> = ({
+	date,
+	minimumDate = moment(),
+	maximumDate = moment().add(15, "years"),
+	onChoose,
+	onClose,
+}) => {
 	const [selectedDate, setSelectedDate] = useState(
 		date
 			? moment(date).startOf("month").format()
@@ -39,9 +46,42 @@ const CalenderPicker: React.FC<CalenderPickerProps> = ({ date, onChoose }) => {
 		}
 		return days;
 	}, [selectedDate]);
+	const calendarMonths = useMemo(() => {
+		const months = [];
+		const initialMonth = moment(selectedDate).startOf("year");
+		for (let i = 0; i < 12; i++) {
+			months.push(initialMonth.clone());
+			initialMonth.add(1, "month");
+		}
+		const finalMonths = [];
+		for (const month of months) {
+			if (
+				month.isSameOrAfter(moment(minimumDate).startOf("month")) &&
+				month.isBefore(moment(maximumDate).endOf("month"))
+			) {
+				finalMonths.push(month);
+			}
+		}
+		return finalMonths;
+	}, [minimumDate, maximumDate, selectedDate]);
+	const calendarYears = useMemo(() => {
+		const years = [];
+		const currentYear = moment()
+			.year(Number(moment(minimumDate).format("YYYY")))
+			.startOf("month");
+		while (currentYear.isBefore(maximumDate)) {
+			years.push(currentYear.clone());
+			currentYear.add(1, "year");
+		}
+		return years;
+	}, [minimumDate, maximumDate]);
+
+	const containerRef = useOutsideClick(() => onClose());
+	const monthsDropdownRef = useOutsideClick(() => setShowMonthPicker(false));
+	const yearsDropdownRef = useOutsideClick(() => setShowYearPicker(false));
 
 	return (
-		<Container>
+		<Container ref={(ref) => (containerRef.current = ref)}>
 			<Header>
 				<BackButton
 					onClick={() => {
@@ -54,28 +94,45 @@ const CalenderPicker: React.FC<CalenderPickerProps> = ({ date, onChoose }) => {
 
 				<div style={{ flex: 1 }} />
 
-				<MonthButton onClick={() => setShowMonthPicker(true)}>
+				<DateButton onClick={() => setShowMonthPicker(!showMonthPicker)}>
 					{moment(selectedDate).format("MMM").toUpperCase()}
-				</MonthButton>
-				{/* {showMonthPicker && (
-					<Months>
-						<MonthName onClick={() => setMonth(1)}>FEB</MonthName>
-						<MonthName onClick={() => setMonth(1)}>MAR</MonthName>
-						<MonthName onClick={() => setMonth(1)}>APR</MonthName>
-						<MonthName onClick={() => setMonth(1)}>...</MonthName>
-						<MonthName onClick={() => setMonth(1)}>DEC</MonthName>
-					</Months>
-				)} */}
+					{showMonthPicker && (
+						<Dropdown ref={(ref) => (monthsDropdownRef.current = ref)}>
+							{calendarMonths.map((calendarMonth) => {
+								return (
+									<DropdownItem
+										key={calendarMonth.format()}
+										onClick={() => {
+											setSelectedDate(calendarMonth.format());
+											setTimeout(() => setShowYearPicker(false), 100);
+										}}
+									>
+										{calendarMonth.format("MMM").toUpperCase()}
+									</DropdownItem>
+								);
+							})}
+						</Dropdown>
+					)}
+				</DateButton>
 
-				<YearButton onClick={() => setShowYearPicker(true)}>
+				<DateButton onClick={() => setShowYearPicker(!showYearPicker)}>
 					{moment(selectedDate).format("YYYY")}
-				</YearButton>
-				{/* {showYearPicker && (
-					<Years>
-						<Year onClick={() => setYear(2023)}>2023</Year>
-						<Year onClick={() => setYear(2024)}>2024</Year>
-					</Years>
-				)} */}
+					{showYearPicker && (
+						<Dropdown ref={(ref) => (yearsDropdownRef.current = ref)}>
+							{calendarYears.map((calendarYear) => (
+								<DropdownItem
+									key={calendarYear.format("YYYY")}
+									onClick={() => {
+										setSelectedDate(calendarYear.format());
+										setTimeout(() => setShowYearPicker(false), 100);
+									}}
+								>
+									{calendarYear.format("YYYY")}
+								</DropdownItem>
+							))}
+						</Dropdown>
+					)}
+				</DateButton>
 
 				<div style={{ flex: 1 }} />
 
@@ -96,6 +153,9 @@ const CalenderPicker: React.FC<CalenderPickerProps> = ({ date, onChoose }) => {
 				</WeekDays>
 				<Days>
 					{calendarDays.map((day, index) => {
+						const isOnTheRange =
+							moment(day).isSameOrAfter(moment(minimumDate).startOf("day")) &&
+							moment(day).isSameOrBefore(moment(maximumDate).endOf("day"));
 						const dayNumber = moment(day).format("D");
 						const isCurrentMonth =
 							moment(day).format("M") === moment(selectedDate).format("M");
@@ -112,6 +172,11 @@ const CalenderPicker: React.FC<CalenderPickerProps> = ({ date, onChoose }) => {
 								}}
 								muted={!isCurrentMonth}
 								selected={isSelected}
+								style={{
+									opacity: isOnTheRange ? 1 : 0.25,
+									pointerEvents: isOnTheRange ? "all" : "none",
+									filter: isOnTheRange ? "none" : "blur(2px)",
+								}}
 							>
 								{dayNumber}
 							</Day>

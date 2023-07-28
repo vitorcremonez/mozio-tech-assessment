@@ -28,6 +28,7 @@ const DatePickerInput: React.FC<InputProps<string>> = ({
 						onChange(date);
 						setFocused(false);
 					}}
+					onClose={() => setFocused(false)}
 				/>
 			)}
 			{error && <Error>{error}</Error>}

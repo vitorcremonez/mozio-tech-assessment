@@ -9,6 +9,7 @@ export const Container = styled.div`
 	border: 1px solid ${({ theme }) => theme.colors.primary};
 	background-color: ${({ theme }) => theme.colors.backgroundInput};
 	border-radius: ${({ theme }) => theme.sizing.borderRadius}px;
+	z-index: 10000;
 `;
 
 export const Header = styled.div`
@@ -29,6 +30,7 @@ export const BackButton = styled(IoArrowBackCircle).attrs({ size: 20 })`
 
 export const MonthButton = styled.div`
 	flex: 1;
+	position: relative;
 `;
 
 export const Months = styled.div`
@@ -38,15 +40,42 @@ export const Months = styled.div`
 
 export const MonthName = styled.div``;
 
-export const YearButton = styled.div`
+export const DateButton = styled.div`
 	flex: 1;
+	position: relative;
+	background-color: ${({ theme }) => theme.colors.primary};
+	border: 1px solid ${({ theme }) => theme.colors.muted};
+	border-radius: 3px;
+	padding: 1px 5px;
+	cursor: pointer;
 `;
 
-export const Years = styled.div`
+export const Dropdown = styled.div`
 	position: absolute;
+	background-color: ${({ theme }) => theme.colors.backgroundInput};
+	border-radius: ${({ theme }) => theme.sizing.borderRadius}px;
+	border: 1px solid ${({ theme }) => theme.colors.primary};
+	padding: 2px;
+	box-shadow: 0px 2px 10px -5px #00000099;
+	max-height: 200px;
+	overflow-y: scroll;
+	left: 0px;
+	z-index: 10000;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 `;
 
-export const Year = styled.div``;
+export const DropdownItem = styled.div`
+	cursor: pointer;
+	padding: 5px;
+	border-radius: ${({ theme }) => theme.sizing.borderRadius - 2}px;
+	&:hover {
+		background-color: ${({ theme }) => theme.colors.primary};
+	}
+`;
 
 export const NextButton = styled(IoArrowForwardCircle).attrs({ size: 20 })`
 	margin-right: 5px;
