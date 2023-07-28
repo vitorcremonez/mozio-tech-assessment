@@ -1,4 +1,4 @@
-import "globals.css";
+import GlobalStyles from "GlobalStyles";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
@@ -11,6 +11,7 @@ const font = Inter({
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<ThemeProvider>
+			<GlobalStyles />
 			<main className={font.className}>
 				<DefaultSeo
 					description={
