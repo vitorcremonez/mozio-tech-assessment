@@ -1,54 +1,37 @@
 import { Button } from "components";
+import moment from "moment";
 import React from "react";
+import Step from "types/Step";
 import Etyrenarium from "./Etyrenarium";
 import { Info } from "./styles";
 
-const TripEtyrenarium: React.FC = () => {
+interface TripEtyrenariumProps {
+	steps: Step[];
+	passengers: number;
+	date: string;
+	onCancel: () => any;
+}
+
+const TripEtyrenarium: React.FC<TripEtyrenariumProps> = ({
+	passengers,
+	date,
+	steps,
+	onCancel,
+}) => {
+	const totalDistance = steps.reduce((acc, step) => acc + step.distance, 0);
+
 	return (
 		<div style={{ textAlign: "center" }}>
-			<Etyrenarium
-				steps={[
-					{
-						from: "Paris",
-						to: "Aix-en-Proence",
-						distance: 638.3,
-					},
-					{
-						from: "Aix-en-Proence",
-						to: "Montpellier",
-						distance: 126.86,
-					},
-					{
-						from: "Aix-en-Proence",
-						to: "Montpellier",
-						distance: 126.86,
-					},
-					{
-						from: "Aix-en-Proence",
-						to: "Montpellier",
-						distance: 126.86,
-					},
-					{
-						from: "Aix-en-Proence",
-						to: "Montpellier",
-						distance: 126.86,
-					},
-					{
-						from: "Aix-en-Proence",
-						to: "Montpellier",
-						distance: 126.86,
-					},
-				]}
-			/>
+			<Etyrenarium steps={steps} />
 			<Info>
 				<p>
-					<b>100.00 km</b> is total distance
+					<b>{totalDistance.toFixed(2)} km</b> is total distance
 				</p>
 				<p>
-					<b>10</b> passengers
+					<b>{passengers}</b> passengers
 				</p>
 				<p>
-					<b>Feb 1, 2023</b>
+					<b>{moment(date).format("MMM D, YYYY")}</b>
 				</p>
 			</Info>
 			<Button>Back</Button>

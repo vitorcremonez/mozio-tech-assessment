@@ -1,13 +1,10 @@
 import { DottedLine, PinIcon, StepIcon } from "components";
 import React from "react";
+import Step from "types/Step";
 import { Balloon, LeftCol, MiddleCol, RightCol, Row } from "./styles";
 
 interface EtyrenariumProps {
-	steps: {
-		from: string;
-		to: string;
-		distance: number;
-	}[];
+	steps: Step[];
 }
 
 const Etyrenarium: React.FC<EtyrenariumProps> = ({ steps }) => {
@@ -19,7 +16,7 @@ const Etyrenarium: React.FC<EtyrenariumProps> = ({ steps }) => {
 				return (
 					<Row key={index}>
 						<LeftCol>
-							<Balloon>{step.distance} km</Balloon>
+							<Balloon>{step.distance.toFixed(2)} km</Balloon>
 						</LeftCol>
 						<MiddleCol>
 							<StepIcon />
