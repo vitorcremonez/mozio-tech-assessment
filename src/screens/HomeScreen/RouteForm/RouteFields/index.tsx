@@ -1,17 +1,17 @@
+import { DottedLine, PinIcon, StepIcon } from "components";
 import { LocationPickerField } from "components/fields";
 import React, { useEffect, useState } from "react";
-import { AiOutlinePlusCircle as PlusIcon } from "react-icons/ai";
-import { BiCircle as CircleIcon } from "react-icons/bi";
-import { CgCloseO as CloseIcon } from "react-icons/cg";
-import { RiMapPin2Line as PinIcon } from "react-icons/ri";
 import { v4 as generateUuid } from "uuid";
 import {
+	ButtonColumn,
+	CloseIcon,
 	LeftColumn,
 	MiddleColumn,
+	PlusIcon,
+	PlusLinkButton,
 	RightColumn,
 	Row,
 	Table,
-	VerticalLine,
 } from "./styles";
 
 const INITIAL_KEY = "d239c487-5a34-4dc4-b084-991cb71208c1";
@@ -33,8 +33,8 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 			<tbody>
 				<Row>
 					<LeftColumn>
-						<CircleIcon size={16} color={"#374151"} />
-						<VerticalLine />
+						<StepIcon />
+						<DottedLine size={57} />
 					</LeftColumn>
 					<MiddleColumn>
 						<LocationPickerField
@@ -57,11 +57,11 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 						<Row key={key}>
 							<LeftColumn>
 								{isLast ? (
-									<PinIcon size={16} style={{ color: "#FF0000" }} />
+									<PinIcon />
 								) : (
 									<>
-										<CircleIcon size={16} color={"#374151"} />
-										<VerticalLine />
+										<StepIcon />
+										<DottedLine size={57} />
 									</>
 								)}
 							</LeftColumn>
@@ -80,7 +80,6 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 							<RightColumn>
 								{!isUnique && (
 									<CloseIcon
-										size={16}
 										onClick={() => {
 											setKeys(keys.filter((x) => key !== x));
 										}}
@@ -91,21 +90,21 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 					);
 				})}
 				<Row>
-					<td colSpan={2} style={{ verticalAlign: "top", height: 50 }}>
-						<a
-							href={"#"}
+					<ButtonColumn>
+						<PlusLinkButton
 							onClick={() => {
 								setKeys([...keys, generateUuid()]);
 							}}
 						>
 							<PlusIcon
-								style={{ marginRight: 10, transform: "translateY(4px)" }}
-								size={16}
+								style={{
+									marginRight: 10,
+									transform: "translateY(4px)",
+								}}
 							/>
 							{"Add destination"}
-						</a>
-					</td>
-					<RightColumn></RightColumn>
+						</PlusLinkButton>
+					</ButtonColumn>
 				</Row>
 			</tbody>
 		</Table>

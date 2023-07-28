@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-	background-color: #ffffff;
-	border: 1px solid #e5e7eb;
+	background-color: ${({ theme }) => theme.colors.backgroundInput};
+	border: 1px solid ${({ theme }) => theme.colors.muted};
 	padding: 5px;
 	border-radius: 6px;
 	font-size: 12px;
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Button = styled.button`
-	background-color: #c7d1f4;
+	background-color: ${({ theme }) => theme.colors.primary};
 	width: 25px;
 	height: 25px;
 	border-radius: 4px;
@@ -19,7 +19,7 @@ export const Button = styled.button`
 	color: white;
 	cursor: pointer;
 	&:hover {
-		background-color: #a5b1e8;
+		background-color: #a5b1e8; // TODO:
 	}
 `;
 

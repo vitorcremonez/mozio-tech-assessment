@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Background = styled.div`
 	width: 100%;
 	box-sizing: border-box;
-	background-color: ${({ theme }) => theme.colors.background};
-	border: 1px solid #c7d1f4;
+	background-color: ${({ theme }) => theme.colors.backgroundInput};
+	border: 1px solid ${({ theme }) => theme.colors.primary};
 	box-shadow: 0px 2px 4px -2px #00000022;
 	position: absolute;
 	top: 5px;
@@ -17,7 +17,7 @@ export const Option = styled.div`
 	border-radius: 4px;
 	transition: background-color 0.2s ease-in-out;
 	&:hover {
-		background-color: #c7d1f4;
+		background-color: ${({ theme }) => theme.colors.primary};
 		cursor: pointer;
 	}
 `;

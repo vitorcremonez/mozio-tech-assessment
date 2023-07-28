@@ -9,5 +9,5 @@ export const Label = styled.label`
 `;
 
 export const Error = styled.div`
-	color: #ff0000;
+	color: ${({ theme }) => theme.colors.danger};
 `;
