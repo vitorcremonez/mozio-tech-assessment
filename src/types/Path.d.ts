@@ -1,4 +1,4 @@
-export default interface Step {
+export default interface Path {
 	from: string;
 	to: string;
 	distance: number;

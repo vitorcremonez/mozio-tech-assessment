@@ -1,28 +1,26 @@
 import { Button } from "components";
 import moment from "moment";
 import React from "react";
-import Step from "types/Step";
+import Path from "types/Path";
 import Etyrenarium from "./Etyrenarium";
 import { Info } from "./styles";
 
 interface TripEtyrenariumProps {
-	steps: Step[];
+	paths: Path[];
 	passengers: number;
 	date: string;
-	onCancel: () => any;
 }
 
 const TripEtyrenarium: React.FC<TripEtyrenariumProps> = ({
 	passengers,
 	date,
-	steps,
-	onCancel,
+	paths,
 }) => {
-	const totalDistance = steps.reduce((acc, step) => acc + step.distance, 0);
+	const totalDistance = paths.reduce((acc, path) => acc + path.distance, 0);
 
 	return (
 		<div style={{ textAlign: "center" }}>
-			<Etyrenarium steps={steps} />
+			<Etyrenarium paths={paths} />
 			<Info>
 				<p>
 					<b>{totalDistance.toFixed(2)} km</b> is total distance

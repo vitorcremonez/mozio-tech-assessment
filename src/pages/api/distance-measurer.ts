@@ -1,7 +1,7 @@
 import citiesData from "database/cities.json";
 import calculateHaversineDistance from "libs/calculateHaversineDistance";
 import type { NextApiRequest, NextApiResponse } from "next";
-import Step from "types/Step";
+import Path from "types/Path";
 
 interface City {
 	name: string;
@@ -26,7 +26,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	const cities = req.body.cities as string[];
-	const distances: Step[] = [];
+	const distances: Path[] = [];
 
 	for (let i = 0; i < cities.length - 1; i++) {
 		const cityA = findCity(cities[i]);

@@ -1,12 +1,12 @@
 import axios from "axios";
 import Card from "components/Card";
 import { useState } from "react";
-import Step from "types/Step";
+import Path from "types/Path";
 import RouteForm from "./RouteForm";
 import TripEtyrenarium from "./TripEtyrenarium";
 
 // TODO: isolate this
-async function getSteps(cities: string[]) {
+async function getPaths(cities: string[]) {
 	const response = await axios.request({
 		baseURL: process.env.NEXT_PUBLIC_API_URL,
 		method: "POST",
@@ -22,7 +22,7 @@ async function getSteps(cities: string[]) {
 const HomeScreen: React.FC = () => {
 	const [result, setResult] = useState<
 		| {
-				steps: Step[];
+				paths: Path[];
 				passengers: number;
 				date: string;
 		  }
@@ -35,8 +35,7 @@ const HomeScreen: React.FC = () => {
 				<TripEtyrenarium
 					passengers={result.passengers}
 					date={result.date}
-					steps={result.steps}
-					onCancel={() => setResult(undefined)}
+					paths={result.paths}
 				/>
 			</Card>
 		);
@@ -47,9 +46,9 @@ const HomeScreen: React.FC = () => {
 			<Card style={{ maxWidth: 750, margin: "auto" }}>
 				<RouteForm
 					onSubmit={async ({ route, passengers, date }) => {
-						const steps = await getSteps(route);
+						const paths = await getPaths(route);
 						setResult({
-							steps,
+							paths,
 							passengers,
 							date,
 						});

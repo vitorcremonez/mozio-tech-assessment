@@ -1,28 +1,28 @@
 import { DottedLine, PinIcon, StepIcon } from "components";
 import React from "react";
-import Step from "types/Step";
+import Path from "types/Path";
 import { Balloon, LeftCol, MiddleCol, RightCol, Row } from "./styles";
 
 interface EtyrenariumProps {
-	steps: Step[];
+	paths: Path[];
 }
 
-const Etyrenarium: React.FC<EtyrenariumProps> = ({ steps }) => {
-	const lastStep = steps[steps.length - 1];
+const Etyrenarium: React.FC<EtyrenariumProps> = ({ paths }) => {
+	const lastPath = paths[paths.length - 1];
 
 	return (
 		<>
-			{steps.map((step, index) => {
+			{paths.map((path, index) => {
 				return (
 					<Row key={index}>
 						<LeftCol>
-							<Balloon>{step.distance.toFixed(2)} km</Balloon>
+							<Balloon>{path.distance.toFixed(2)} km</Balloon>
 						</LeftCol>
 						<MiddleCol>
 							<StepIcon />
 							<DottedLine size={36} />
 						</MiddleCol>
-						<RightCol>{step.from}</RightCol>
+						<RightCol>{path.from}</RightCol>
 					</Row>
 				);
 			})}
@@ -31,7 +31,7 @@ const Etyrenarium: React.FC<EtyrenariumProps> = ({ steps }) => {
 				<MiddleCol>
 					<PinIcon />
 				</MiddleCol>
-				<RightCol>{lastStep.to}</RightCol>
+				<RightCol>{lastPath.to}</RightCol>
 			</Row>
 		</>
 	);
