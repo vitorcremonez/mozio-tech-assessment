@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "./styles";
 
-interface ButtonProps {
+interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 	children: React.ReactNode;
 	disabled?: boolean;
 }

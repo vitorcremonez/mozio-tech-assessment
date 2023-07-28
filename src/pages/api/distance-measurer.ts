@@ -35,7 +35,7 @@ export default async function handler(
 		distances.push({
 			from: cityA.name,
 			to: cityB.name,
-			distance,
+			distance: Number(distance.toFixed(2)),
 		});
 	}
 

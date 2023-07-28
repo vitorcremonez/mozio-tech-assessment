@@ -1,9 +1,7 @@
 import axios from "axios";
 import Card from "components/Card";
-import { useState } from "react";
-import Path from "types/Path";
+import { useRouter } from "next/router";
 import RouteForm from "./RouteForm";
-import TripEtyrenarium from "./TripEtyrenarium";
 
 // TODO: isolate this
 async function getPaths(cities: string[]) {
@@ -20,42 +18,24 @@ async function getPaths(cities: string[]) {
 }
 
 const HomeScreen: React.FC = () => {
-	const [result, setResult] = useState<
-		| {
-				paths: Path[];
-				passengers: number;
-				date: string;
-		  }
-		| undefined
-	>(undefined);
-
-	if (result) {
-		return (
-			<Card style={{ maxWidth: 750, margin: "auto" }}>
-				<TripEtyrenarium
-					passengers={result.passengers}
-					date={result.date}
-					paths={result.paths}
-				/>
-			</Card>
-		);
-	}
+	const router = useRouter();
 
 	return (
-		<>
-			<Card style={{ maxWidth: 750, margin: "auto" }}>
-				<RouteForm
-					onSubmit={async ({ route, passengers, date }) => {
-						const paths = await getPaths(route);
-						setResult({
-							paths,
+		<Card style={{ maxWidth: 750, margin: "auto" }}>
+			<RouteForm
+				onSubmit={async ({ route, passengers, date }) => {
+					const paths = await getPaths(route);
+					router.push({
+						pathname: "/result",
+						query: {
+							paths: JSON.stringify(paths),
 							passengers,
 							date,
-						});
-					}}
-				/>
-			</Card>
-		</>
+						},
+					});
+				}}
+			/>
+		</Card>
 	);
 };
 
