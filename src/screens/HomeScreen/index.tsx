@@ -2,6 +2,7 @@ import axios from "axios";
 import Card from "components/Card";
 import { useState } from "react";
 import RouteForm from "./RouteForm";
+import TripEtyrenarium from "./TripEtyrenarium";
 
 // TODO: isolate this
 async function calculateDistances(cities: string[]) {
@@ -23,6 +24,12 @@ const HomeScreen: React.FC = () => {
 		passengers: number;
 		date: string;
 	}>();
+
+	return (
+		<Card style={{ maxWidth: 750, margin: "auto" }}>
+			<TripEtyrenarium />
+		</Card>
+	);
 
 	return (
 		<>
