@@ -23,7 +23,12 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 			setFetching(true);
 			setFetchError(undefined);
 			const response = await axios.request({
-				url: `http://localhost:3000/api/cities-searcher?query=${query}`,
+				baseURL: process.env.NEXT_PUBLIC_API_URL,
+				method: "GET",
+				url: "/api/cities-searcher",
+				params: {
+					query,
+				},
 			});
 			const locations = response.data.data;
 			if (locations.length <= 0) {

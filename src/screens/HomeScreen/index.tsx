@@ -6,8 +6,9 @@ import RouteForm from "./RouteForm";
 // TODO: isolate this
 async function calculateDistances(cities: string[]) {
 	const response = await axios.request({
+		baseURL: process.env.NEXT_PUBLIC_API_URL,
 		method: "POST",
-		url: `http://localhost:3000/api/distance-measurer`, // TODO: env
+		url: "/api/distance-measurer",
 		data: {
 			cities,
 		},
