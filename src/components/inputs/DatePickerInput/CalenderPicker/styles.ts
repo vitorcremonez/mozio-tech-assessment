@@ -10,6 +10,7 @@ export const Container = styled.div`
 	background-color: ${({ theme }) => theme.colors.backgroundInput};
 	border-radius: ${({ theme }) => theme.sizing.borderRadius}px;
 	z-index: 10000;
+	left: -100px;
 `;
 
 export const Header = styled.div`

@@ -8,4 +8,5 @@ export const Input = styled.div`
 	font-size: 12px;
 	line-height: 18px;
 	height: 18px;
+	overflow: hidden;
 `;

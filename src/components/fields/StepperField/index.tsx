@@ -1,4 +1,4 @@
-import StepperInput from "components/inputs/StepperInput";
+import { StepperInput } from "components/inputs";
 import { Field } from "formik";
 import React from "react";
 import useField from "../useField";

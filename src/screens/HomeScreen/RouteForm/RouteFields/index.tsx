@@ -14,14 +14,23 @@ import {
 	Table,
 } from "./styles";
 
-const INITIAL_KEY = "d239c487-5a34-4dc4-b084-991cb71208c1";
-
 interface RouteFieldsProps {
+	cities: string[];
 	onChangeDestinations: (keys: string[]) => any;
 }
 
-const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
-	const [keys, setKeys] = useState([INITIAL_KEY]);
+const RouteFields: React.FC<RouteFieldsProps> = ({
+	cities,
+	onChangeDestinations,
+}) => {
+	const [keys, setKeys] = useState(
+		Array.from(
+			{
+				length: cities.length <= 1 ? 1 : cities.length - 1,
+			},
+			() => generateUuid()
+		)
+	);
 
 	useEffect(() => {
 		onChangeDestinations(keys);
@@ -38,7 +47,7 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 					</LeftColumn>
 					<MiddleColumn>
 						<LocationPickerField
-							defaultValue={""}
+							defaultValue={cities[0] || ""}
 							name={"origin"}
 							label={"City of origin"}
 							validate={(value) => {
@@ -67,7 +76,7 @@ const RouteFields: React.FC<RouteFieldsProps> = ({ onChangeDestinations }) => {
 							</LeftColumn>
 							<MiddleColumn>
 								<LocationPickerField
-									defaultValue={""}
+									defaultValue={cities[index + 1] || ""}
 									name={`destinations[${key}]`}
 									label={"City of destination"}
 									validate={(value) => {

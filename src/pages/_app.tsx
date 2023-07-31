@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<GlobalStyles />
 			<main className={font.className}>
 				<DefaultSeo
+					title={"Mozio Tech Assessment - Vitor Cremonez"}
 					description={
 						"This project is an implementation of the Mozio Assessment Test by Vitor Cremonez. It demonstrates proficiency in a variety of web development skills and techniques."
 					}

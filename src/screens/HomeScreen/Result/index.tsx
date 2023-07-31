@@ -1,28 +1,27 @@
 import { Button } from "components";
-import Card from "components/Card";
 import moment from "moment";
-import { useRouter } from "next/router";
 import React from "react";
-import Path from "types/Path";
+import { Path } from "types";
 import Etyrenarium from "./Etyrenarium";
 import { Info } from "./styles";
 
-interface ResultScreenProps {
+interface ResultProps {
 	paths: Path[];
 	passengers: number;
 	date: string;
+	onClose: () => any;
 }
 
-const ResultScreen: React.FC<ResultScreenProps> = ({
+const Result: React.FC<ResultProps> = ({
+	paths,
 	passengers,
 	date,
-	paths,
+	onClose,
 }) => {
-	const router = useRouter();
 	const totalDistance = paths.reduce((acc, path) => acc + path.distance, 0);
 
 	return (
-		<Card style={{ textAlign: "center", maxWidth: 750, margin: "auto" }}>
+		<div style={{ textAlign: "center" }}>
 			<Etyrenarium paths={paths} />
 			<Info>
 				<p>
@@ -35,9 +34,9 @@ const ResultScreen: React.FC<ResultScreenProps> = ({
 					<b>{moment(date).format("MMM D, YYYY")}</b>
 				</p>
 			</Info>
-			<Button onClick={() => router.back()}>Back</Button>
-		</Card>
+			<Button onClick={() => onClose()}>Back</Button>
+		</div>
 	);
 };
 
-export default ResultScreen;
+export default Result;

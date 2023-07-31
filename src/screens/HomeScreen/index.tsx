@@ -1,40 +1,61 @@
-import axios from "axios";
-import Card from "components/Card";
-import { useRouter } from "next/router";
+import { Card } from "components";
+import { Api } from "libs";
+import { useCallback, useState } from "react";
+import ErrorMessage from "./ErrorMessage";
+import Result from "./Result";
 import RouteForm from "./RouteForm";
-
-// TODO: isolate this
-async function getPaths(cities: string[]) {
-	const response = await axios.request({
-		baseURL: process.env.NEXT_PUBLIC_API_URL,
-		method: "POST",
-		url: "/api/distance-measurer",
-		data: {
-			cities,
-		},
-	});
-	const distances = response.data.data;
-	return distances;
-}
+import { Content } from "./styles";
 
 const HomeScreen: React.FC = () => {
-	const router = useRouter();
+	const [loading, setLoading] = useState(false);
+	const [result, setResult] = useState<any>();
+	const [error, setError] = useState();
+
+	const handleSubmit = useCallback(async ({ route, passengers, date }: any) => {
+		try {
+			setLoading(true);
+			const paths = await Api.getPaths(route);
+			setResult({
+				paths,
+				passengers,
+				date,
+			});
+		} catch (error: any) {
+			setError(error.response?.data.message || error.message || "Error");
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
 	return (
 		<Card style={{ maxWidth: 750, margin: "auto" }}>
-			<RouteForm
-				onSubmit={async ({ route, passengers, date }) => {
-					const paths = await getPaths(route);
-					router.push({
-						pathname: "/result",
-						query: {
-							paths: JSON.stringify(paths),
-							passengers,
-							date,
-						},
-					});
-				}}
-			/>
+			<Content visible={!result && !error}>
+				<RouteForm onSubmit={handleSubmit} loading={loading} />
+			</Content>
+
+			<Content visible={!!error}>
+				<ErrorMessage
+					message={error!}
+					onClose={() => {
+						setResult(undefined);
+						setError(undefined);
+					}}
+				/>
+			</Content>
+
+			<Content visible={result && !error}>
+				{result && !error && (
+					<Result
+						paths={result.paths || []}
+						passengers={result.passengers || 0}
+						date={result.date || ""}
+						onClose={() => {
+							setResult(undefined);
+							setError(undefined);
+						}}
+					/>
+				)}
+			</Content>
 		</Card>
 	);
 };

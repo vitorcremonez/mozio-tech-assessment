@@ -1,12 +1,18 @@
 import { Formik, Form as FormikForm } from "formik";
 import React, { useCallback } from "react";
+import Updater from "./Updater";
 
 interface FormProps {
 	children: React.ReactNode;
-	onSubmit: (data: any) => void;
+	onSubmit: (data: any) => any;
+	onUpdate?: (data: any) => any;
 }
 
-const Form: React.FC<FormProps> = ({ onSubmit, children }) => {
+const Form: React.FC<FormProps> = ({
+	onSubmit,
+	onUpdate = () => {},
+	children,
+}) => {
 	const handleSubmit = useCallback(
 		(values: any) => {
 			onSubmit(values);
@@ -21,7 +27,10 @@ const Form: React.FC<FormProps> = ({ onSubmit, children }) => {
 			validateOnBlur
 			validateOnChange
 		>
-			<FormikForm>{children}</FormikForm>
+			<FormikForm>
+				<Updater onUpdate={onUpdate} />
+				{children}
+			</FormikForm>
 		</Formik>
 	);
 };

@@ -17,7 +17,7 @@ const light: Theme = {
 	sizing: {
 		borderRadius: 6,
 	},
-	backgroundOpacity: 0.2,
+	backgroundOpacity: 0.15,
 };
 
 export default light;

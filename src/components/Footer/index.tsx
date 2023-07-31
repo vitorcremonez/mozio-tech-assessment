@@ -21,6 +21,7 @@ const Footer: React.FC<FooterProps> = () => {
 			<BsGithub
 				size={20}
 				style={{ padding: 10, cursor: "pointer" }}
+				title={"View on GitHub"}
 				onClick={() =>
 					router.push("https://github.com/vitorcremonez/mozio-tech-assessment")
 				}
@@ -30,6 +31,7 @@ const Footer: React.FC<FooterProps> = () => {
 					size={20}
 					style={{ padding: 10, cursor: "pointer" }}
 					onClick={() => setTheme("light")}
+					title={"Switch to Light Mode"}
 				/>
 			)}
 			{theme === "light" && (
@@ -37,6 +39,7 @@ const Footer: React.FC<FooterProps> = () => {
 					size={20}
 					style={{ padding: 10, cursor: "pointer" }}
 					onClick={() => setTheme("dark")}
+					title={"Switch to Dark Mode"}
 				/>
 			)}
 		</div>

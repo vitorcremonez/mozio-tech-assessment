@@ -1,6 +1,5 @@
-import Footer from "components/Footer";
-import GradientBlurBackground from "components/GradientBlurBackground";
-import HomeScreen from "screens/HomeScreen";
+import { Footer, GradientBlurBackground } from "components";
+import { HomeScreen } from "screens";
 
 export default function HomePage() {
 	return (
