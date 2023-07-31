@@ -1,6 +1,7 @@
 import { Button, Form } from "components";
 import { DatePickerField, StepperField } from "components/fields";
-import { useCallback, useState } from "react";
+import { useRouter } from "next/router";
+import { useCallback, useMemo, useState } from "react";
 import { Col, Row } from "react-grid-system";
 import RouteFields from "./RouteFields";
 
@@ -15,6 +16,20 @@ interface RouteFormProps {
 
 const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 	const [keys, setKeys] = useState<string[]>([]);
+	const router = useRouter();
+	const defaultValues = useMemo(() => {
+		if (!router.isReady) {
+			return null;
+		}
+		return {
+			cities:
+				typeof router.query.cities === "string"
+					? router.query.cities.split(",")
+					: [],
+			passengers: Number(router.query.passengers) || 0,
+			date: typeof router.query.date === "string" ? router.query.date : "",
+		};
+	}, [router]);
 
 	const handleSubmit = useCallback(
 		async (values: any) => {
@@ -27,17 +42,22 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 		[keys, onSubmit]
 	);
 
+	if (!defaultValues) return null;
+
 	return (
 		<Form onSubmit={handleSubmit}>
 			<Row>
 				<Col xs={12} md={8}>
-					<RouteFields onChangeDestinations={(keys) => setKeys(keys)} />
+					<RouteFields
+						onChangeDestinations={(keys) => setKeys(keys)}
+						cities={defaultValues.cities || []}
+					/>
 				</Col>
 				<Col xs={12} md={4}>
 					<Row style={{ marginLeft: 25, display: "inline-flex" }}>
 						<Col xs={6} md={12} style={{ paddingRight: 50 }}>
 							<StepperField
-								defaultValue={0}
+								defaultValue={defaultValues.passengers}
 								name={"passengers"}
 								label={"Passengers"}
 								validate={(value) => {
@@ -49,7 +69,7 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 						</Col>
 						<Col xs={6} md={12}>
 							<DatePickerField
-								defaultValue={""}
+								defaultValue={defaultValues.date}
 								name={"date"}
 								label={"Date"}
 								validate={(value) => {

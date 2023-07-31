@@ -1,6 +1,7 @@
 import { DatePickerInput } from "components/inputs";
 import { Field } from "formik";
-import React from "react";
+import moment from "moment";
+import React, { useMemo } from "react";
 import useField from "../useField";
 
 interface DatePickerFieldProps {
@@ -21,6 +22,13 @@ const DatePickerField: React.FC<DatePickerFieldProps> = ({
 		defaultValue,
 		validate,
 	});
+	const isValidDate = useMemo(() => {
+		return moment(defaultValue).isValid();
+	}, [defaultValue]);
+
+	if (!isValidDate) {
+		return <div>Invalid Date</div>;
+	}
 
 	return (
 		<Field
