@@ -13,8 +13,8 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	await fakeProcessingDelay(1000);
-	const query = req.query.query as string;
+	await fakeProcessingDelay(800);
+	const query = req.query.search as string;
 	const filteredCities = cities
 		.map(([city]) => city as string)
 		.filter((city) => city.toLowerCase().includes(query.toLowerCase()))

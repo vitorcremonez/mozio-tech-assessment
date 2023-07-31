@@ -15,8 +15,8 @@ const GradientBlurBackground: React.FC = () => {
 				zIndex: -1,
 				opacity: theme.backgroundOpacity,
 				backgroundImage: `url('/gradient.png')`,
-				backgroundSize: "cover",
-				backgroundPosition: "center",
+				backgroundPosition: "center 0px",
+				backgroundRepeat: "no-repeat",
 			}}
 		/>
 	);

@@ -25,22 +25,33 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const cities = req.body.cities as string[];
-	const distances: Path[] = [];
+	try {
+		const cities = req.body.cities as string[];
+		const distances: Path[] = [];
 
-	for (let i = 0; i < cities.length - 1; i++) {
-		const cityA = findCity(cities[i]);
-		const cityB = findCity(cities[i + 1]);
-		const distance = calculateHaversineDistance(cityA, cityB);
-		distances.push({
-			from: cityA.name,
-			to: cityB.name,
-			distance: Number(distance.toFixed(2)),
+		if (cities.includes("Dijon")) {
+			throw new Error("Oops! Something went wrong!");
+		}
+
+		for (let i = 0; i < cities.length - 1; i++) {
+			const cityA = findCity(cities[i]);
+			const cityB = findCity(cities[i + 1]);
+			const distance = calculateHaversineDistance(cityA, cityB);
+			distances.push({
+				from: cityA.name,
+				to: cityB.name,
+				distance: Number(distance.toFixed(2)),
+			});
+		}
+
+		return res.json({
+			status: "success",
+			data: distances,
+		});
+	} catch (error: any) {
+		return res.status(400).json({
+			status: "error",
+			message: error.message,
 		});
 	}
-
-	return res.json({
-		status: "success",
-		data: distances,
-	});
 }

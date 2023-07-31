@@ -25,9 +25,9 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 			const response = await axios.request({
 				baseURL: process.env.NEXT_PUBLIC_API_URL,
 				method: "GET",
-				url: "/api/cities-searcher",
+				url: "/api/cities",
 				params: {
-					query,
+					search: query,
 				},
 			});
 			const locations = response.data.data;

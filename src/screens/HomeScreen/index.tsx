@@ -8,7 +8,7 @@ async function getPaths(cities: string[]) {
 	const response = await axios.request({
 		baseURL: process.env.NEXT_PUBLIC_API_URL,
 		method: "POST",
-		url: "/api/distance-measurer",
+		url: "/api/distances",
 		data: {
 			cities,
 		},
