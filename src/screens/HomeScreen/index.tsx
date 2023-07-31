@@ -1,23 +1,9 @@
-import axios from "axios";
-import Card from "components/Card";
+import { Card } from "components";
+import { Api } from "libs";
 import { useCallback, useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import Result from "./Result";
 import RouteForm from "./RouteForm";
-
-// TODO: isolate this
-async function getPaths(cities: string[]) {
-	const response = await axios.request({
-		baseURL: process.env.NEXT_PUBLIC_API_URL,
-		method: "POST",
-		url: "/api/distances",
-		data: {
-			cities,
-		},
-	});
-	const distances = response.data.data;
-	return distances;
-}
 
 const HomeScreen: React.FC = () => {
 	const [result, setResult] = useState<any>();
@@ -25,7 +11,7 @@ const HomeScreen: React.FC = () => {
 
 	const handleSubmit = useCallback(async ({ route, passengers, date }: any) => {
 		try {
-			const paths = await getPaths(route);
+			const paths = await Api.getPaths(route);
 			setResult({
 				paths,
 				passengers,

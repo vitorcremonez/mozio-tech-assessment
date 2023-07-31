@@ -1,6 +1,6 @@
 import { DottedLine, PinIcon, StepIcon } from "components";
 import React from "react";
-import Path from "types/Path";
+import { Path } from "types";
 import { Balloon, LeftCol, MiddleCol, RightCol, Row } from "./styles";
 
 interface EtyrenariumProps {

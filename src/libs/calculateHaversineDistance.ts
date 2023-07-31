@@ -1,11 +1,6 @@
-const EARTH_RADIUS_KM = 6371;
+import { City } from "types";
 
-// FIXME: isolate this interface
-interface City {
-	name: string;
-	lat: number;
-	lon: number;
-}
+const EARTH_RADIUS_KM = 6371;
 
 function toRadians(degrees: number) {
 	return degrees * (Math.PI / 180);

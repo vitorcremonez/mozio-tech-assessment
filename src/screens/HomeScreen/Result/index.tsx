@@ -1,7 +1,7 @@
 import { Button } from "components";
 import moment from "moment";
 import React from "react";
-import Path from "types/Path";
+import { Path } from "types";
 import Etyrenarium from "./Etyrenarium";
 import { Info } from "./styles";
 

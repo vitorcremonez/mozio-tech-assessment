@@ -1,13 +1,7 @@
 import citiesData from "database/cities.json";
-import calculateHaversineDistance from "libs/calculateHaversineDistance";
+import { calculateHaversineDistance } from "libs";
 import type { NextApiRequest, NextApiResponse } from "next";
-import Path from "types/Path";
-
-interface City {
-	name: string;
-	lat: number;
-	lon: number;
-}
+import { City, Path } from "types";
 
 function findCity(cityName: string): City {
 	const cityAData = citiesData.find(([city]) => city === cityName);

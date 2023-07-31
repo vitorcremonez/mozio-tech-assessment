@@ -1,4 +1,4 @@
-import axios from "axios";
+import { Api } from "libs";
 import React, { useCallback, useEffect, useState } from "react";
 import { Container, Error as ErrorMessage, Label } from "../styles";
 import { InputProps } from "../types";
@@ -22,15 +22,7 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 		try {
 			setFetching(true);
 			setFetchError(undefined);
-			const response = await axios.request({
-				baseURL: process.env.NEXT_PUBLIC_API_URL,
-				method: "GET",
-				url: "/api/cities",
-				params: {
-					search: query,
-				},
-			});
-			const locations = response.data.data;
+			const locations = await Api.getLocations(query);
 			if (locations.length <= 0) {
 				throw Error();
 			} else {
