@@ -24,7 +24,12 @@ const RouteFields: React.FC<RouteFieldsProps> = ({
 	onChangeDestinations,
 }) => {
 	const [keys, setKeys] = useState(
-		Array.from({ length: cities.length - 1 || 1 }, () => generateUuid())
+		Array.from(
+			{
+				length: cities.length === 0 ? 1 : cities.length - 1,
+			},
+			() => generateUuid()
+		)
 	);
 
 	useEffect(() => {

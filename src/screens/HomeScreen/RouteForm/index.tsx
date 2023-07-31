@@ -1,7 +1,7 @@
 import { Button, Form } from "components";
 import { DatePickerField, StepperField } from "components/fields";
 import { useRouter } from "next/router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Col, Row } from "react-grid-system";
 import RouteFields from "./RouteFields";
 
@@ -17,18 +17,19 @@ interface RouteFormProps {
 const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 	const [keys, setKeys] = useState<string[]>([]);
 	const router = useRouter();
-	const defaultValues = useMemo(() => {
-		if (!router.isReady) {
-			return null;
+	const [defaultValues, setDefaultValues] = useState<any>();
+
+	useEffect(() => {
+		if (router.isReady) {
+			setDefaultValues({
+				cities:
+					typeof router.query.cities === "string"
+						? router.query.cities?.split(",")
+						: [],
+				passengers: Number(router.query.passengers) || 0,
+				date: typeof router.query.date === "string" ? router.query.date : "",
+			});
 		}
-		return {
-			cities:
-				typeof router.query.cities === "string"
-					? router.query.cities.split(",")
-					: [],
-			passengers: Number(router.query.passengers) || 0,
-			date: typeof router.query.date === "string" ? router.query.date : "",
-		};
 	}, [router]);
 
 	const handleSubmit = useCallback(
@@ -42,7 +43,9 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 		[keys, onSubmit]
 	);
 
-	if (!defaultValues) return null;
+	if (!defaultValues) {
+		return null;
+	}
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -50,7 +53,7 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 				<Col xs={12} md={8}>
 					<RouteFields
 						onChangeDestinations={(keys) => setKeys(keys)}
-						cities={defaultValues.cities || []}
+						cities={defaultValues.cities}
 					/>
 				</Col>
 				<Col xs={12} md={4}>

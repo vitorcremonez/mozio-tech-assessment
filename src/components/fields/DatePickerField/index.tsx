@@ -26,7 +26,7 @@ const DatePickerField: React.FC<DatePickerFieldProps> = ({
 		return moment(defaultValue).isValid();
 	}, [defaultValue]);
 
-	if (!isValidDate) {
+	if (!isValidDate && defaultValue !== "") {
 		return <div>Invalid Date</div>;
 	}
 
