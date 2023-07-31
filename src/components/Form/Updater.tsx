@@ -10,6 +10,7 @@ const Updater: React.FC<UpdaterProps> = ({ onUpdate }) => {
 
 	useEffect(() => {
 		onUpdate(values);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [values]);
 
 	return null;

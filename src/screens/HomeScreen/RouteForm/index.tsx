@@ -22,9 +22,12 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 
 	useEffect(() => {
 		if (router.isReady) {
-			console.log(router.query.cities);
 			setDefaultValues({
-				cities: router.query.cities || [],
+				cities: Array.isArray(router.query.cities)
+					? router.query.cities.filter((city) => city)
+					: typeof router.query.cities === "string"
+					? [router.query.cities]
+					: [],
 				passengers: Number(router.query.passengers) || 0,
 				date: typeof router.query.date === "string" ? router.query.date : "",
 			});

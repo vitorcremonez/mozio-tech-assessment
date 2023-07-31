@@ -26,7 +26,7 @@ const RouteFields: React.FC<RouteFieldsProps> = ({
 	const [keys, setKeys] = useState(
 		Array.from(
 			{
-				length: cities.length === 0 ? 1 : cities.length - 1,
+				length: cities.length <= 1 ? 1 : cities.length - 1,
 			},
 			() => generateUuid()
 		)
