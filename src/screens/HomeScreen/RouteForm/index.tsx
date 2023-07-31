@@ -1,5 +1,6 @@
 import { Button, Form } from "components";
 import { DatePickerField, StepperField } from "components/fields";
+import moment from "moment";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { Col, Row } from "react-grid-system";
@@ -21,26 +22,48 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 
 	useEffect(() => {
 		if (router.isReady) {
+			console.log(router.query.cities);
 			setDefaultValues({
-				cities:
-					typeof router.query.cities === "string"
-						? router.query.cities?.split(",")
-						: [],
+				cities: router.query.cities || [],
 				passengers: Number(router.query.passengers) || 0,
 				date: typeof router.query.date === "string" ? router.query.date : "",
 			});
 		}
 	}, [router]);
 
-	const handleSubmit = useCallback(
-		async (values: any) => {
+	const getCities = useCallback(
+		(values: any) => {
 			const destinations = keys.map((key) => values.destinations[key]);
 			const route = [values.origin, ...destinations];
+			return route;
+		},
+		[keys]
+	);
+
+	const handleSubmit = useCallback(
+		async (values: any) => {
+			const route = getCities(values);
 			const passengers = values.passengers;
 			const date = values.date;
 			onSubmit({ route, passengers, date });
 		},
-		[keys, onSubmit]
+		[onSubmit, getCities]
+	);
+
+	const handleFormUpdate = useCallback(
+		(values: any) => {
+			router.push({
+				pathname: router.pathname,
+				query: {
+					cities: getCities(values),
+					passengers: values.passengers,
+					date: values.date
+						? moment(values.date).format("YYYY-MM-DD")
+						: undefined,
+				},
+			});
+		},
+		[router, getCities]
 	);
 
 	if (!defaultValues) {
@@ -48,7 +71,7 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 	}
 
 	return (
-		<Form onSubmit={handleSubmit}>
+		<Form onSubmit={handleSubmit} onUpdate={handleFormUpdate}>
 			<Row>
 				<Col xs={12} md={8}>
 					<RouteFields

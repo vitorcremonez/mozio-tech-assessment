@@ -8,11 +8,11 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 	loading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = (props) => {
+const Button: React.FC<ButtonProps> = ({ loading, children, ...props }) => {
 	return (
 		<Container {...props}>
-			{props.loading && <Loader />}
-			<Visible visible={!props.loading}>{props.children}</Visible>
+			{loading && <Loader />}
+			<Visible visible={!loading}>{children}</Visible>
 		</Container>
 	);
 };
