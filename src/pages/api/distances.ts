@@ -1,5 +1,5 @@
 import citiesData from "database/cities.json";
-import { calculateHaversineDistance } from "libs";
+import { calculateHaversineDistance, fakeProcessingDelay } from "libs";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { City, Path } from "types";
 
@@ -20,6 +20,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
+		await fakeProcessingDelay(1500);
 		const cities = req.body.cities as string[];
 		const distances: Path[] = [];
 

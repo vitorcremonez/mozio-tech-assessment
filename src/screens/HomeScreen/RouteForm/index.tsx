@@ -10,9 +10,10 @@ interface RouteFormProps {
 		passengers: number;
 		date: string;
 	}) => any;
+	loading: boolean;
 }
 
-const RouteForm: React.FC<RouteFormProps> = ({ onSubmit }) => {
+const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 	const [keys, setKeys] = useState<string[]>([]);
 
 	const handleSubmit = useCallback(
@@ -63,7 +64,7 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit }) => {
 			</Row>
 			<Row>
 				<Col style={{ textAlign: "center" }}>
-					<Button>Submit</Button>
+					<Button loading={loading}>Submit</Button>
 				</Col>
 			</Row>
 		</Form>

@@ -7,11 +7,13 @@ import RouteForm from "./RouteForm";
 import { Content } from "./styles";
 
 const HomeScreen: React.FC = () => {
+	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState<any>();
 	const [error, setError] = useState();
 
 	const handleSubmit = useCallback(async ({ route, passengers, date }: any) => {
 		try {
+			setLoading(true);
 			const paths = await Api.getPaths(route);
 			setResult({
 				paths,
@@ -20,13 +22,15 @@ const HomeScreen: React.FC = () => {
 			});
 		} catch (error: any) {
 			setError(error.response?.data.message || error.message || "Error");
+		} finally {
+			setLoading(false);
 		}
 	}, []);
 
 	return (
 		<Card style={{ maxWidth: 750, margin: "auto" }}>
 			<Content visible={!result && !error}>
-				<RouteForm onSubmit={handleSubmit} />
+				<RouteForm onSubmit={handleSubmit} loading={loading} />
 			</Content>
 
 			<Content visible={!!error}>

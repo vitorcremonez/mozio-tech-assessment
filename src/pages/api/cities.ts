@@ -1,13 +1,6 @@
 import cities from "database/cities.json";
+import { fakeProcessingDelay } from "libs";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-function fakeProcessingDelay(ms: number) {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(true);
-		}, ms);
-	});
-}
 
 export default async function handler(
 	req: NextApiRequest,

@@ -9,7 +9,7 @@ export const Container = styled.button`
 	padding: 8px 12px;
 	cursor: pointer;
 	transition: opacity 100ms ease-in-out;
-
+	position: relative;
 	&:hover {
 		opacity: 0.8;
 	}
@@ -19,4 +19,12 @@ export const Container = styled.button`
 	:disabled {
 		background-color: ${({ theme }) => theme.colors.muted};
 	}
+`;
+
+interface VisibleProps {
+	visible: boolean;
+}
+
+export const Visible = styled.div<VisibleProps>`
+	visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
 `;
