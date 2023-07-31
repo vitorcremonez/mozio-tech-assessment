@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import Result from "./Result";
 import RouteForm from "./RouteForm";
+import { Content } from "./styles";
 
 const HomeScreen: React.FC = () => {
 	const [result, setResult] = useState<any>();
@@ -18,17 +19,17 @@ const HomeScreen: React.FC = () => {
 				date,
 			});
 		} catch (error: any) {
-			setError(error.response?.data.message || error.message);
+			setError(error.response?.data.message || error.message || "Error");
 		}
 	}, []);
 
 	return (
 		<Card style={{ maxWidth: 750, margin: "auto" }}>
-			<div style={{ display: (result || error) && "none" }}>
+			<Content visible={!result && !error}>
 				<RouteForm onSubmit={handleSubmit} />
-			</div>
+			</Content>
 
-			<div style={{ display: !error && "none" }}>
+			<Content visible={!!error}>
 				<ErrorMessage
 					message={error!}
 					onClose={() => {
@@ -36,9 +37,9 @@ const HomeScreen: React.FC = () => {
 						setError(undefined);
 					}}
 				/>
-			</div>
+			</Content>
 
-			<div style={{ display: (!result || error) && "none" }}>
+			<Content visible={result && !error}>
 				{result && !error && (
 					<Result
 						paths={result.paths || []}
@@ -50,7 +51,7 @@ const HomeScreen: React.FC = () => {
 						}}
 					/>
 				)}
-			</div>
+			</Content>
 		</Card>
 	);
 };
