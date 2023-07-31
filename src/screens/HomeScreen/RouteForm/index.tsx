@@ -105,6 +105,9 @@ const RouteForm: React.FC<RouteFormProps> = ({ onSubmit, loading }) => {
 									if (!value) {
 										return "Select date";
 									}
+									if (moment(value).isBefore(moment().startOf("day"))) {
+										return "Date must be after today";
+									}
 								}}
 							/>
 						</Col>
