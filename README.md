@@ -2,6 +2,38 @@
 
 This is a test assessment conducted by Vitor Cremonez for Mozio.
 
+## Run:
+
+Install dependencies
+
+```
+yarn
+```
+
+Config `.env`
+
+```
+cp .env.example .env
+```
+
+Run
+
+```
+yarn dev
+```
+
+Test
+
+```
+yarn test
+```
+
+Build
+
+```
+yarn build
+```
+
 ## Techs:
 
 - SPA using NextJS Library
@@ -10,6 +42,7 @@ This is a test assessment conducted by Vitor Cremonez for Mozio.
 
 ## Features:
 
+- Project Setup.
 - Unit and Integration Tests.
 - Basic API endpoints simulating backend processing delay.
 - Haversine Distance Calculation based on Latitude and Longitude.
