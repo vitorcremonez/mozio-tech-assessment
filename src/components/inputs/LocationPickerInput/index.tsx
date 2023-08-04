@@ -37,7 +37,9 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 	}, []);
 
 	useEffect(() => {
-		fetch(term);
+		if (term) {
+			fetch(term);
+		}
 	}, [fetch, term]);
 
 	return (
@@ -55,7 +57,7 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 					setTerm(newValue);
 				}}
 			/>
-			{focused && !fetchError && (
+			{focused && !fetchError && term && (
 				<Selector
 					loading={fetching}
 					options={options}
