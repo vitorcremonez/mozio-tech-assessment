@@ -29,15 +29,19 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 				setOptions(locations);
 			}
 		} catch (error: any) {
+			const API_ERROR_MESSAGE = error.response?.data.message;
+			const DEFAULT_ERROR_MESSAGE = "Oops! Failed to search with this keyword.";
+			setFetchError(API_ERROR_MESSAGE || DEFAULT_ERROR_MESSAGE);
 			setOptions([]);
-			setFetchError("Oops! Failed to search with this keyword.");
 		} finally {
 			setFetching(false);
 		}
 	}, []);
 
 	useEffect(() => {
-		fetch(term);
+		if (term) {
+			fetch(term);
+		}
 	}, [fetch, term]);
 
 	return (
@@ -55,7 +59,7 @@ const LocationPickerInput: React.FC<InputProps<string>> = ({
 					setTerm(newValue);
 				}}
 			/>
-			{focused && !fetchError && (
+			{focused && !fetchError && term && (
 				<Selector
 					loading={fetching}
 					options={options}
